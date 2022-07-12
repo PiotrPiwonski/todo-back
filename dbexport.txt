@@ -1,0 +1,61 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Wersja serwera:               10.4.21-MariaDB - mariadb.org binary distribution
+-- Serwer OS:                    Win64
+-- HeidiSQL Wersja:              11.3.0.6295
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+-- Zrzut struktury tabela todo.todo
+CREATE TABLE IF NOT EXISTS `todo` (
+  `id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT uuid(),
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `done` tinyint(1) NOT NULL DEFAULT 0,
+  `userid` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userid` (`userid`),
+  CONSTRAINT `FK_todo_users` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Zrzucanie danych dla tabeli todo.todo: ~6 rows (około)
+/*!40000 ALTER TABLE `todo` DISABLE KEYS */;
+INSERT INTO `todo` (`id`, `description`, `done`, `userid`) VALUES
+	('04bb580c-3b14-4d5d-85cf-cea704ac4969', 'czarek2', 0, 'd8fb3ce6-1a2c-43a9-96dc-b940a0238fb9'),
+	('1c292376-a63a-4148-90ef-6c4e0c7c3334', 'spanie', 0, 'd548d6bb-451f-48f9-9801-37fd923147fb'),
+	('6329e0b9-c838-48a3-a65b-5ac33ae0a0cf', 'czarek1', 1, 'd8fb3ce6-1a2c-43a9-96dc-b940a0238fb9'),
+	('814c53a9-f618-11ec-840e-3c970e36e30f', 'śniadanie', 0, 'd548d6bb-451f-48f9-9801-37fd923147fb'),
+	('86dc47a0-f618-11ec-840e-3c970e36e30f', 'obiad', 0, 'd548d6bb-451f-48f9-9801-37fd923147fb'),
+	('8d2ce018-f618-11ec-840e-3c970e36e30f', 'kolacja', 0, 'd548d6bb-451f-48f9-9801-37fd923147fb'),
+	('b2490702-1c13-4e00-8f40-cd4b154a5e5e', 'Drugie śniadanie', 0, 'd548d6bb-451f-48f9-9801-37fd923147fb'),
+	('b7cc90d2-f4c9-4dea-a998-6df0e4b67d0b', 'odrobić zaległości', 0, '50889990-c070-4d13-8343-fac84e3c306d'),
+	('e84b9836-1281-4b23-8051-c74b8f96f426', 'podwieczorek', 0, 'd548d6bb-451f-48f9-9801-37fd923147fb');
+/*!40000 ALTER TABLE `todo` ENABLE KEYS */;
+
+-- Zrzut struktury tabela todo.users
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT uuid(),
+  `name` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(345) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Zrzucanie danych dla tabeli todo.users: ~3 rows (około)
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
+	('3a3d4c8a-2e92-40b1-b42c-d0eded466c54', 'ArturQ', 'qix44k@gmail.com', 'ArturQ'),
+	('50889990-c070-4d13-8343-fac84e3c306d', 'Marek', 'marek@m.m', 'Piotrek1'),
+	('d548d6bb-451f-48f9-9801-37fd923147fb', 'piotr', 'a@b.c', 'Piotrek1'),
+	('d8fb3ce6-1a2c-43a9-96dc-b940a0238fb9', 'Czarek', 'czarek@c.c', 'Piotrek1');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
